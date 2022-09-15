@@ -74,6 +74,7 @@ export type Character = {
 
 
 export type CharacterInfo = {
+  id?:number;
   name: string;
   description: string;
   thumbnail: string;

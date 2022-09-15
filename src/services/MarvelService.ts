@@ -29,6 +29,7 @@ class MarvelService{
 
   readonly transformCharacter = (char:Character):CharacterInfo =>{
     return {
+      id:char.id,
       name: char.name,
       description: char.description,
       thumbnail: `${char.thumbnail.path}.${char.thumbnail.extension}`,
