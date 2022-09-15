@@ -1,3 +1,4 @@
+import { Response } from "./types";
 
 
 class MarvelService{
@@ -5,7 +6,8 @@ class MarvelService{
   readonly apiKey = 'apikey=509faed9d71f3b06f9eeda57040c800a';
   readonly apiLimit = 'limit=9';
   readonly apiOffset = 'offset=210';
-  getResource  =async (url:string) =>{
+
+  getResource  =async (url:string):Promise<Response> =>{
     let res = await fetch(url);
 
     if (!res.ok) throw new Error(`Could not fetch ${url}, status: ${res.status}`);
