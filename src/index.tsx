@@ -9,7 +9,4 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
  
-const marvel = new MarvelService();
-marvel.getCharacter(1011052).then(res => console.log(res));
-
 root.render(<App/>);

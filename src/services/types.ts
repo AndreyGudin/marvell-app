@@ -1,4 +1,4 @@
-export type Response = {
+export type MarvelResponse = {
   code: number;
   status: string;
   copyright: string;
@@ -20,12 +20,7 @@ export type Character = {
   description: string;
   modified: Date;
   resourceURI: string;
-  urls: [
-    {
-      type: string;
-      url: string;
-    }
-  ];
+  urls: URL[];
   thumbnail: {
     path: string;
     extension: string;
@@ -76,3 +71,17 @@ export type Character = {
     ];
   };
 };
+
+
+export type CharacterInfo = {
+  name: string;
+  description: string;
+  thumbnail: string;
+  homepage: string;
+  wiki: string;
+}
+
+type URL = {
+  type: string;
+  url: string;
+}
