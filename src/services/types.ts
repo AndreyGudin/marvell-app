@@ -29,12 +29,7 @@ export type Character = {
     available: number;
     returned: number;
     collectionURI: string;
-    items: [
-      {
-        resourceURI: string;
-        name: string;
-      }
-    ];
+    items:Comics[]
   };
   stories: {
     available: number;
@@ -80,9 +75,15 @@ export type CharacterInfo = {
   thumbnail: string;
   homepage: string;
   wiki: string;
+  comics?:Comics[];
 }
 
 type URL = {
   type: string;
   url: string;
+}
+
+type Comics = {
+  resourceURI: string;
+  name: string;
 }

@@ -7,8 +7,8 @@ import { CharacterInfo } from "../../services/types";
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 
-type RandomCharState = {
-  char: CharacterInfo;
+export type RandomCharState = {
+  char: CharacterInfo | null;
   loading: boolean;
   error: boolean;
 };
@@ -32,12 +32,15 @@ class RandomChar extends Component {
     this.setState({ char, loading: false });
   };
 
+  onCharLoading = () => {this.setState({loading:true});}
+
   onError = () => {
     this.setState({ loading: false, error: true });
   };
 
   updateChar = () => {
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+    this.onCharLoading();
     this.marvelService
       .getCharacter(id)
       .then(this.onCharLoaded)
@@ -48,11 +51,13 @@ class RandomChar extends Component {
     this.updateChar();
   }
 
+
   render(): ReactNode {
     const { char, loading, error } = this.state;
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error) ? <View char={char}/> : null;
+    const content = !(loading || error) ? <View char={char as CharacterInfo}/> : null;
+
     return (
       <div className="randomchar">
         {errorMessage}
@@ -66,7 +71,7 @@ class RandomChar extends Component {
           </p>
           <p className="randomchar__title">Or choose another one</p>
           <button className="button button__main">
-            <div className="inner">try it</div>
+            <div onClick={this.updateChar} className="inner">try it</div>
           </button>
           <img src={mjolnir} alt="mjolnir" className="randomchar__decoration" />
         </div>
@@ -77,12 +82,17 @@ class RandomChar extends Component {
 
 const View = ({ char }: { char: CharacterInfo }) => {
   const { name, description, thumbnail, homepage, wiki } = char;
+  let imgStyle = {'objectFit':'cover'};
+  if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg'){
+    imgStyle = {'objectFit':'fill'};
+  }
   return (
     <div className="randomchar__block">
       <img
         src={thumbnail as string}
         alt="Random character"
         className="randomchar__img"
+        style={imgStyle as {}}
       />
       <div className="randomchar__info">
         <p className="randomchar__name">{name}</p>
