@@ -5,6 +5,7 @@ import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 
 import decoration from "../../resources/img/vision.png";
+import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 export type AppState = {
   charId: number | null
@@ -28,7 +29,9 @@ class App extends Component {
           <RandomChar />
           <div className="char__content">
             <CharList onCharacterClick={this.onCharacterClick}/>
-            <CharInfo charId={this.state.charId}/>
+            <ErrorBoundary>
+              <CharInfo charId={this.state.charId}/>
+            </ErrorBoundary> 
           </div>
           <img className="bg-decoration" src={decoration} alt="vision" />
         </main>
